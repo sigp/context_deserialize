@@ -1,0 +1,21 @@
+[package]
+name = "context_deserialize_derive"
+description = "Procedural macro for deriving the ContextDeserialize trait"
+documentation = "https://docs.rs/context_deserialize_derive"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "1.0"
+syn = "1.0"
+
+[dev-dependencies]
+context_deserialize = { path = "../context_deserialize" }
+serde = { workspace = true }
+serde_json = { workspace = true }

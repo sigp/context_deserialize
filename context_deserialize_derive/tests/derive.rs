@@ -1,4 +1,4 @@
-use context_deserialize::{context_deserialize, ContextDeserialize};
+use context_deserialize::{ContextDeserialize, context_deserialize};
 use serde::{Deserialize, Serialize};
 
 #[test]

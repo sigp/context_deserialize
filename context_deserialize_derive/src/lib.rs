@@ -1,12 +1,8 @@
-extern crate proc_macro;
-extern crate quote;
-extern crate syn;
-
 use proc_macro::TokenStream;
 use quote::quote;
 use syn::{
-    parse_macro_input, AttributeArgs, DeriveInput, GenericParam, LifetimeDef, Meta, NestedMeta,
-    WhereClause,
+    AttributeArgs, DeriveInput, GenericParam, LifetimeDef, Meta, NestedMeta, WhereClause,
+    parse_macro_input,
 };
 
 #[proc_macro_attribute]

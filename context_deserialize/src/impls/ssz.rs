@@ -1,12 +1,12 @@
 use crate::ContextDeserialize;
 use serde::{
-    de::{Deserializer, Error},
     Deserialize,
+    de::{Deserializer, Error},
 };
 use ssz_types::{
+    Bitfield, FixedVector,
     length::{Fixed, Variable},
     typenum::Unsigned,
-    Bitfield, FixedVector,
 };
 
 impl<'de, C, T, N> ContextDeserialize<'de, C> for FixedVector<T, N>
