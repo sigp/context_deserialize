@@ -10,11 +10,7 @@ repository.workspace = true
 
 [dependencies]
 serde = { workspace = true }
-
-# Optional dependencies.
 context_deserialize_derive = { version = "0.1.0", path = "../context_deserialize_derive", optional = true }
-milhouse = { version = "0.7.0", optional = true }
-ssz_types = { version = "0.12", optional = true }
 
 [dev-dependencies]
 serde_json = { workspace = true }
@@ -22,6 +18,3 @@ serde_json = { workspace = true }
 [features]
 default = ["derive"]
 derive = ["dep:context_deserialize_derive"]
-milhouse = ["dep:milhouse"]
-ssz = ["dep:ssz_types"]
-all = ["derive", "milhouse", "ssz"]
