@@ -3,7 +3,7 @@ members = ["context_deserialize", "context_deserialize_derive"]
 resolver = "2"
 
 [workspace.package]
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 authors = ["Sigma Prime <contact@sigmaprime.io>"]
 license = "Apache-2.0"

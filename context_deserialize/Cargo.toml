@@ -10,7 +10,7 @@ repository.workspace = true
 
 [dependencies]
 serde = { workspace = true }
-context_deserialize_derive = { version = "0.1.0", path = "../context_deserialize_derive", optional = true }
+context_deserialize_derive = { version = "0.2.0", path = "../context_deserialize_derive", optional = true }
 
 [dev-dependencies]
 serde_json = { workspace = true }
