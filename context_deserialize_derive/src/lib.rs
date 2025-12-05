@@ -1,13 +1,13 @@
 use proc_macro::TokenStream;
 use quote::quote;
 use syn::{
-    AttributeArgs, DeriveInput, GenericParam, LifetimeDef, Meta, NestedMeta, WhereClause,
-    parse_macro_input,
+    DeriveInput, GenericParam, LifetimeParam, Meta, Token, WhereClause, parse_macro_input,
+    punctuated::Punctuated,
 };
 
 #[proc_macro_attribute]
 pub fn context_deserialize(attr: TokenStream, item: TokenStream) -> TokenStream {
-    let args = parse_macro_input!(attr as AttributeArgs);
+    let args = parse_macro_input!(attr with Punctuated::<Meta, Token![,]>::parse_terminated);
     let input = parse_macro_input!(item as DeriveInput);
     let ident = &input.ident;
 
@@ -16,11 +16,15 @@ pub fn context_deserialize(attr: TokenStream, item: TokenStream) -> TokenStream 
 
     for meta in args {
         match meta {
-            NestedMeta::Meta(Meta::Path(p)) => {
+            Meta::Path(p) => {
                 ctx_types.push(p);
             }
-            NestedMeta::Meta(Meta::NameValue(nv)) if nv.path.is_ident("bound") => {
-                if let syn::Lit::Str(lit_str) = &nv.lit {
+            Meta::NameValue(nv) if nv.path.is_ident("bound") => {
+                if let syn::Expr::Lit(syn::ExprLit {
+                    lit: syn::Lit::Str(lit_str),
+                    ..
+                }) = &nv.value
+                {
                     let where_string = format!("where {}", lit_str.value());
                     match syn::parse_str::<WhereClause>(&where_string) {
                         Ok(where_clause) => {
@@ -76,7 +80,7 @@ pub fn context_deserialize(attr: TokenStream, item: TokenStream) -> TokenStream 
     // Ensure 'de lifetime exists in impl generics
     let has_de = impl_generics
         .lifetimes()
-        .any(|LifetimeDef { lifetime, .. }| lifetime.ident == "de");
+        .any(|LifetimeParam { lifetime, .. }| lifetime.ident == "de");
 
     if !has_de {
         impl_generics.params.insert(0, syn::parse_quote! { 'de });
